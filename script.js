@@ -1,7 +1,7 @@
 // Available Levels
 const levels = {
   easy: 5,
-  medium: 33,
+  medium: 3,
   hard: 1,
 };
 
@@ -60,11 +60,15 @@ wordInput.addEventListener("keyup", typeWord);
 function countdown() {
   // Make sure time is not run out
   if (time > 0) {
+    isPlaying = true;
     // Decrement
     time--;
   } else if (time === 0) {
     // Game is over
-    isPlaying = false;
+    clearInterval(counter);
+    scores.push(score);
+    highscoreDisplay.innerHTML = Math.max(...scores);
+    message.innerHTML = "Game Over !!!";
   }
   // Show time
   timeDisplay.innerHTML = time;
@@ -93,7 +97,6 @@ function typeWord(e) {
     if (wordInput.value !== currentWord.innerText) {
       clearInterval(counter);
       scores.push(score);
-      console.log(scores);
       highscoreDisplay.innerHTML = Math.max(...scores);
       message.innerHTML = "Game Over !!!";
     } else if (wordInput.value === currentWord.innerText) {
